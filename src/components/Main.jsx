@@ -3,6 +3,7 @@ import { useState } from "react";
 const initialFormState = {
 radioButtons: '',
 }
+
 function Main() {
   const [open, setOpen] = useState(false); //Ignore this state
 
@@ -15,38 +16,49 @@ function Main() {
 
     setFormState(initialFormState)
   }
+
+  const handleChange = (event) => {
+    const targetValue = event.target.value
+    const targetName = event.target.name
+    const targetType = event.target.type
+    const targetChecked = event.target.checked
+  console.log(targetValue, targetName, targetType, targetChecked)
+  
+  if(targetName === 'radioButtons') {
+    setFormState({...formState, radioButtons: targetValue})
+  }
+  }
   return (
     <main className="main">
       <section className={`main__list ${open ? "open" : ""}`}>
         <h2>Answers list</h2>
         {/* answers should go here */}
       </section>
-      <section className="main__form">{/* a form should be here */}</section>
-      <form class="form" onSubmit={handleSubmit}>
+      <section className="main__form"><form class="form" onSubmit={handleSubmit}>
   <h2>Tell us what you think about your rubber duck!</h2>
   <div class="form__group radio">
     <h3>How do you rate your rubber duck colour?</h3>
     <ul> //
   <li>
-    <input id="color-one" type="radio" name="color" value="1" /><label
+    <input id="color-one" type="radio" name="color" value="1" onChange={handleChange}  /><label
       for="color-one"
       >1</label
     >
   </li>
   <li>
-    <input id="color-two" type="radio" name="color" value="2" /><label
+    <input id="color-two" type="radio" name="color" value="2" onChange={handleChange} /><label
       for="color-two"
       >2</label
     >
   </li>
   <li>
-    <input id="color-three" type="radio" name="color" value="3" /><label
+    <input id="color-three" type="radio" name="color" value="3" onChange={handleChange}/><label
       for="color-three"
       >3</label
     >
   </li>
   <li>
-    <input id="color-four" type="radio" name="color" value="4" /><label
+    <input id="color-four" type="radio" name="color" value="4" onChange={handleChange}/><label
       for="color-four"
       >4</label
     >
@@ -55,7 +67,38 @@ function Main() {
   </div>
   <div class="form__group">
     <h3>How do you like to spend time with your rubber duck</h3>
-    {/* <!-- checkboxes go here --> */}
+    <ul>
+  <li>
+    <label
+      ><input
+        name="spend-time"
+        type="checkbox"
+        value="swimming"
+      />Swimming</label
+    >
+  </li>
+  <li>
+    <label
+      ><input name="spend-time" type="checkbox" value="bathing" />Bathing</label
+    >
+  </li>
+  <li>
+    <label
+      ><input
+        name="spend-time"
+        type="checkbox"
+        value="chatting"
+      />Chatting</label
+    >
+  </li>
+  <li>
+    <label
+      ><input name="spend-time" type="checkbox" value="noTime" />I don't like to
+      spend time with it</label
+    >
+  </li>
+</ul>
+
   </div>
   <label
     >What else have you got to say about your rubber duck?<textarea
@@ -74,7 +117,8 @@ function Main() {
       name="email"
       value="" /></label
   ><input class="form__submit" type="submit" value="Submit Survey!" />
-</form>
+</form></section>
+      
 
     </main>
     
